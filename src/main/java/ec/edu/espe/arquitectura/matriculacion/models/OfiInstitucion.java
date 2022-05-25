@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.Objects;
 
 @NoArgsConstructor
 @Getter
@@ -47,4 +48,20 @@ public class OfiInstitucion {
     @Column(name = "version", nullable = false)
     private Integer version;
 
+    public OfiInstitucion(BigDecimal id) {
+        this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof OfiInstitucion)) return false;
+        OfiInstitucion that = (OfiInstitucion) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

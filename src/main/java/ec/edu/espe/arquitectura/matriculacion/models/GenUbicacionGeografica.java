@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.Objects;
 
 @NoArgsConstructor
 @Getter
@@ -62,4 +63,20 @@ public class GenUbicacionGeografica {
     @Column(name = "version", nullable = false)
     private Integer version;
 
+    public GenUbicacionGeografica(Integer id) {
+        this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof GenUbicacionGeografica)) return false;
+        GenUbicacionGeografica that = (GenUbicacionGeografica) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

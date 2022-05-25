@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.time.Instant;
+import java.util.Objects;
 
 @NoArgsConstructor
 @Getter
@@ -46,4 +47,20 @@ public class GenPai {
     @Column(name = "version", nullable = false)
     private Integer version;
 
+    public GenPai(String id) {
+        this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof GenPai)) return false;
+        GenPai genPai = (GenPai) o;
+        return Objects.equals(id, genPai.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

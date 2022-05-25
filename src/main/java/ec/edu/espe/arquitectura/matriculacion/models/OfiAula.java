@@ -8,6 +8,7 @@ import lombok.ToString;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.Objects;
 
 @NoArgsConstructor
 @Getter
@@ -54,4 +55,20 @@ public class OfiAula {
     @Column(name = "version", nullable = false)
     private Integer version;
 
+    public OfiAula(Integer id) {
+        this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof OfiAula)) return false;
+        OfiAula ofiAula = (OfiAula) o;
+        return Objects.equals(id, ofiAula.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

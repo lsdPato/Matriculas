@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.Objects;
 
 @NoArgsConstructor
 @Getter
@@ -44,4 +45,20 @@ public class OfiSede {
     @Column(name = "version", nullable = false)
     private Integer version;
 
+    public OfiSede(String id) {
+        this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof OfiSede)) return false;
+        OfiSede ofiSede = (OfiSede) o;
+        return Objects.equals(id, ofiSede.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.Objects;
 
 @NoArgsConstructor
 @Getter
@@ -56,4 +57,20 @@ public class GenRegla {
     @Column(name = "version", nullable = false)
     private Integer version;
 
+    public GenRegla(String id) {
+        this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof GenRegla)) return false;
+        GenRegla genRegla = (GenRegla) o;
+        return Objects.equals(id, genRegla.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

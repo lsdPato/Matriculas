@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.Objects;
 
 @NoArgsConstructor
 @Getter
@@ -38,4 +39,20 @@ public class GenPaisEstructura {
     @Column(name = "version", nullable = false)
     private Integer version;
 
+    public GenPaisEstructura(GenPaisEstructuraId id) {
+        this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof GenPaisEstructura)) return false;
+        GenPaisEstructura that = (GenPaisEstructura) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
