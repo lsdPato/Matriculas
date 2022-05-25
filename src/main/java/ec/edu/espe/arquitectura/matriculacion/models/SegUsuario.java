@@ -9,9 +9,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @NoArgsConstructor
 @Getter
@@ -19,7 +21,7 @@ import java.time.LocalDate;
 @ToString
 @Entity
 @Table(name = "seg_usuario")
-public class SegUsuario {
+public class SegUsuario implements Serializable {
     @Id
     @Column(name = "cod_usuario", nullable = false, length = 30)
     private String id;
@@ -66,4 +68,20 @@ public class SegUsuario {
     @Column(name = "version", nullable = false)
     private Integer version;
 
+    public SegUsuario(String id) {
+        this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SegUsuario)) return false;
+        SegUsuario that = (SegUsuario) o;
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

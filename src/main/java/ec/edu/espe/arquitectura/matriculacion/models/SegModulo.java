@@ -9,6 +9,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
+import java.util.Objects;
 
 @NoArgsConstructor
 @Getter
@@ -16,7 +18,7 @@ import javax.persistence.Table;
 @ToString
 @Entity
 @Table(name = "seg_modulo")
-public class SegModulo {
+public class SegModulo implements Serializable {
     @Id
     @Column(name = "cod_modulo", nullable = false, length = 16)
     private String id;
@@ -30,4 +32,20 @@ public class SegModulo {
     @Column(name = "version", nullable = false)
     private Integer version;
 
+    public SegModulo(String id) {
+        this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SegModulo)) return false;
+        SegModulo segModulo = (SegModulo) o;
+        return id.equals(segModulo.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

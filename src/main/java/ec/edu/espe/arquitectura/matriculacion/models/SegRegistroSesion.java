@@ -6,7 +6,9 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.Instant;
+import java.util.Objects;
 
 @NoArgsConstructor
 @Getter
@@ -14,7 +16,7 @@ import java.time.Instant;
 @ToString
 @Entity
 @Table(name = "seg_registro_sesion")
-public class SegRegistroSesion {
+public class SegRegistroSesion implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "secuencia", nullable = false)
@@ -35,4 +37,20 @@ public class SegRegistroSesion {
     @Column(name = "error", length = 5)
     private String error;
 
+    public SegRegistroSesion(Integer id) {
+        this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SegRegistroSesion)) return false;
+        SegRegistroSesion that = (SegRegistroSesion) o;
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

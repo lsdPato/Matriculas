@@ -9,7 +9,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.time.Instant;
+import java.util.Objects;
 
 @NoArgsConstructor
 @Getter
@@ -17,7 +19,7 @@ import java.time.Instant;
 @ToString
 @Entity
 @Table(name = "seg_perfil")
-public class SegPerfil {
+public class SegPerfil implements Serializable {
     @Id
     @Column(name = "cod_perfil", nullable = false, length = 8)
     private String id;
@@ -40,4 +42,20 @@ public class SegPerfil {
     @Column(name = "version", nullable = false)
     private Integer version;
 
+    public SegPerfil(String id) {
+        this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SegPerfil)) return false;
+        SegPerfil segPerfil = (SegPerfil) o;
+        return id.equals(segPerfil.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
