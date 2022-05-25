@@ -9,7 +9,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.time.Instant;
+import java.util.Objects;
 
 @NoArgsConstructor
 @Getter
@@ -17,7 +19,7 @@ import java.time.Instant;
 @ToString
 @Entity
 @Table(name = "per_tipo_discapacidad")
-public class PerTipoDiscapacidad {
+public class PerTipoDiscapacidad implements Serializable {
     @Id
     @Column(name = "cod_tipo_discapacidad", nullable = false, length = 8)
     private String id;
@@ -37,4 +39,20 @@ public class PerTipoDiscapacidad {
     @Column(name = "version", nullable = false)
     private Integer version;
 
+    public PerTipoDiscapacidad(String id) {
+        this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PerTipoDiscapacidad)) return false;
+        PerTipoDiscapacidad that = (PerTipoDiscapacidad) o;
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

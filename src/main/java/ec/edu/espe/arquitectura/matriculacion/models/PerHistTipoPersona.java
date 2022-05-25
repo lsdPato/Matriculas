@@ -6,7 +6,9 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.Instant;
+import java.util.Objects;
 
 @NoArgsConstructor
 @Getter
@@ -14,7 +16,7 @@ import java.time.Instant;
 @ToString
 @Entity
 @Table(name = "per_hist_tipo_persona")
-public class PerHistTipoPersona {
+public class PerHistTipoPersona implements Serializable {
     @EmbeddedId
     private PerHistTipoPersonaId id;
 
@@ -56,4 +58,20 @@ public class PerHistTipoPersona {
     @Column(name = "version", nullable = false)
     private Integer version;
 
+    public PerHistTipoPersona(PerHistTipoPersonaId id) {
+        this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PerHistTipoPersona)) return false;
+        PerHistTipoPersona that = (PerHistTipoPersona) o;
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
