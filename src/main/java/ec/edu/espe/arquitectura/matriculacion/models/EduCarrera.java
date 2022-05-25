@@ -6,7 +6,9 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @NoArgsConstructor
 @Getter
@@ -14,7 +16,7 @@ import java.math.BigDecimal;
 @ToString
 @Entity
 @Table(name = "edu_carrera")
-public class EduCarrera {
+public class EduCarrera implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cod_carrera", nullable = false)
@@ -54,4 +56,20 @@ public class EduCarrera {
     @Column(name = "modalidad", length = 64)
     private String modalidad;
 
+    public EduCarrera(Integer id) {
+        this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof EduCarrera)) return false;
+        EduCarrera that = (EduCarrera) o;
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

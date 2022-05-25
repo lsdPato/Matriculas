@@ -6,8 +6,10 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @NoArgsConstructor
 @Getter
@@ -15,7 +17,7 @@ import java.time.LocalDate;
 @ToString
 @Entity
 @Table(name = "edu_periodo")
-public class EduPeriodo {
+public class EduPeriodo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cod_periodo", nullable = false)
@@ -36,4 +38,20 @@ public class EduPeriodo {
     @Column(name = "parciales", nullable = false, precision = 2)
     private BigDecimal parciales;
 
+    public EduPeriodo(Integer id) {
+        this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof EduPeriodo)) return false;
+        EduPeriodo that = (EduPeriodo) o;
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

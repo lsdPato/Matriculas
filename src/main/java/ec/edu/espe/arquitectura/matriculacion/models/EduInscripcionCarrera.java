@@ -6,7 +6,9 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @NoArgsConstructor
 @Getter
@@ -14,7 +16,7 @@ import java.time.LocalDate;
 @ToString
 @Entity
 @Table(name = "edu_inscripcion_carrera")
-public class EduInscripcionCarrera {
+public class EduInscripcionCarrera implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cod_inscripcion_carrera", nullable = false)
@@ -37,4 +39,20 @@ public class EduInscripcionCarrera {
     @Column(name = "estado", nullable = false, length = 3)
     private String estado;
 
+    public EduInscripcionCarrera(Integer id) {
+        this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof EduInscripcionCarrera)) return false;
+        EduInscripcionCarrera that = (EduInscripcionCarrera) o;
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

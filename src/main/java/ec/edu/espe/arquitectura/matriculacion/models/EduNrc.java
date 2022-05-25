@@ -6,6 +6,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Objects;
 
 @NoArgsConstructor
 @Getter
@@ -13,7 +15,7 @@ import javax.persistence.*;
 @ToString
 @Entity
 @Table(name = "edu_nrc")
-public class EduNrc {
+public class EduNrc implements Serializable {
     @EmbeddedId
     private EduNrcId id;
 
@@ -33,4 +35,20 @@ public class EduNrc {
     @Column(name = "cupos", nullable = false)
     private Integer cupos;
 
+    public EduNrc(EduNrcId id) {
+        this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof EduNrc)) return false;
+        EduNrc eduNrc = (EduNrc) o;
+        return id.equals(eduNrc.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

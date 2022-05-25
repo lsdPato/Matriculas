@@ -6,6 +6,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Objects;
 
 @NoArgsConstructor
 @Getter
@@ -13,7 +15,7 @@ import javax.persistence.*;
 @ToString
 @Entity
 @Table(name = "edu_malla_carrera")
-public class EduMallaCarrera {
+public class EduMallaCarrera implements Serializable {
     @Id
     @Column(name = "cod_materiacarrera", nullable = false)
     private Integer id;
@@ -29,4 +31,20 @@ public class EduMallaCarrera {
     @Column(name = "nivel")
     private Integer nivel;
 
+    public EduMallaCarrera(Integer id) {
+        this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof EduMallaCarrera)) return false;
+        EduMallaCarrera that = (EduMallaCarrera) o;
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
